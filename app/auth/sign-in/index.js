@@ -82,7 +82,7 @@ export default function Signin() {
             fontSize: 16,
           }}
         >
-          Create Account
+          Want to create Account ?
         </Text>
       </TouchableOpacity>
     </View>
