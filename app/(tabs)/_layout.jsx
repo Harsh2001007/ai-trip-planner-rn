@@ -19,6 +19,7 @@ export default function TabLayout() {
             <Ionicons name="location-sharp" size={24} color={color} />
           ),
           tabBarLabel: "My Trip",
+          headerShown: false,
         }}
       />
       <Tabs.Screen
