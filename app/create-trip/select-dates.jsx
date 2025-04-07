@@ -54,7 +54,7 @@ export default function selectdates() {
       }}
     >
       <Text style={{ fontFamily: "outfit-bold", fontSize: 35, marginTop: 20 }}>
-        Travel Dates
+        Select Your Travel Dates
       </Text>
 
       <View style={{ marginTop: 30 }}>
