@@ -48,7 +48,7 @@ export default function selecttraveler() {
               style={{ marginVertical: 10 }}
               onPress={() => setSelectedTraveler(item)}
             >
-              <OptionCard option={item} selectedTraveler={selectedTraveler} />
+              <OptionCard option={item} selectedOption={selectedTraveler} />
             </TouchableOpacity>
           )}
         />
