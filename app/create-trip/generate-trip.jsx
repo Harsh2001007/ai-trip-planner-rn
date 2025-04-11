@@ -1,7 +1,6 @@
 import { View, Text, Image } from "react-native";
 import React from "react";
 import { Colors } from "../../constants/Colors";
-import { withDecay } from "react-native-reanimated";
 
 export default function GenerateTrip() {
   return (
