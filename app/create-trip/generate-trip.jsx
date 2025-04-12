@@ -15,7 +15,7 @@ export default function GenerateTrip() {
       <Text
         style={{ fontFamily: "outfit-bold", fontSize: 35, textAlign: "center" }}
       >
-        Please Wait...
+        Please Wait....
       </Text>
       <Text
         style={{
