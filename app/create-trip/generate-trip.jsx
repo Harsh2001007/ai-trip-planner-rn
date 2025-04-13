@@ -1,8 +1,28 @@
 import { View, Text, Image } from "react-native";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Colors } from "../../constants/Colors";
+import { CreateTripContext } from "../../context/CreateTripContext";
+import { AI_PROMPT } from "../../constants/Options";
 
 export default function GenerateTrip() {
+  const { tripData, setTripData } = useContext(CreateTripContext);
+
+  useEffect(() => {
+    tripData && GenerateAiTrip;
+  }, [tripData]);
+
+  const GenerateAiTrip = () => {
+    const FINAL_PROMPT = AI_PROMPT.replace(
+      "{location}",
+      tripData?.locationInfo?.name
+    )
+      .replace("{totalDay}", tripData?.totoalNoOfDays)
+      .replace("{totalNight}", tripData?.totoalNoOfDays - 1)
+      .replace("{traveler}", tripData?.travelerCount?.title)
+      .replace("{budget}", tripData?.budget);
+
+    console.log(FINAL_PROMPT, "this was final prompt");
+  };
   return (
     <View
       style={{
