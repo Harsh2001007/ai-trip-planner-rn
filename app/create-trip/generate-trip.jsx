@@ -25,7 +25,7 @@ export default function GenerateTrip() {
           marginTop: 20,
         }}
       >
-        We are working to generate your dream trip
+        We are working to generate your dream trip.
       </Text>
 
       <Image
