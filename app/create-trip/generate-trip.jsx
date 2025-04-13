@@ -8,18 +8,19 @@ export default function GenerateTrip() {
   const { tripData, setTripData } = useContext(CreateTripContext);
 
   useEffect(() => {
-    tripData && GenerateAiTrip;
+    console.log("prompting started");
+    tripData && GenerateAiTrip();
   }, [tripData]);
 
   const GenerateAiTrip = () => {
-    const FINAL_PROMPT = AI_PROMPT.replace(
+    const FINAL_PROMPT = AI_PROMPT.replaceAll(
       "{location}",
       tripData?.locationInfo?.name
     )
-      .replace("{totalDay}", tripData?.totoalNoOfDays)
-      .replace("{totalNight}", tripData?.totoalNoOfDays - 1)
-      .replace("{traveler}", tripData?.travelerCount?.title)
-      .replace("{budget}", tripData?.budget);
+      .replaceAll("{totalDay}", tripData?.totoalNoOfDays)
+      .replaceAll("{totalNight}", tripData?.totoalNoOfDays - 1)
+      .replaceAll("{traveler}", tripData?.travelerCount?.title)
+      .replaceAll("{budget}", tripData?.budget);
 
     console.log(FINAL_PROMPT, "this was final prompt");
   };
