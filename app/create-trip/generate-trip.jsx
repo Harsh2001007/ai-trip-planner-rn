@@ -5,11 +5,14 @@ import { CreateTripContext } from "../../context/CreateTripContext";
 import { AI_PROMPT } from "../../constants/Options";
 import { GoogleGenAI } from "@google/genai";
 import { useRouter } from "expo-router";
+import { db, auth } from "./../../configs/firebaseConfig";
+import { doc, setDoc } from "firebase/firestore";
 
 export default function GenerateTrip() {
   const { tripData, setTripData } = useContext(CreateTripContext);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const user = auth.currentUser;
 
   useEffect(() => {
     console.log("prompting started");
@@ -35,12 +38,30 @@ export default function GenerateTrip() {
       model: "gemini-2.0-flash",
       contents: FINAL_PROMPT,
     });
+    console.log(FINAL_PROMPT, "----------");
 
-    console.log(response.text, "$$$$$$ received from API $$$$$$$$$");
+    const tripResp = response.text;
+    const cleanJson = tripResp
+      .replace(/^```json\s*/, "")
+      .replace(/```$/, "")
+      .trim();
+
+    console.log(typeof cleanJson);
+    console.log(cleanJson);
     setLoading(false);
-    router.navigate("(tabs)/mytrip");
+    const docId = Date.now().toString();
+    console.log(typeof docId);
 
-    // console.log(FINAL_PROMPT, "this was final prompt");
+    await setDoc(doc(db, "UserTrips", docId), {
+      userEmail: user.email,
+      tripPlan: JSON.parse(cleanJson), // data from api
+      tripData: JSON.stringify(tripData), // user selection data
+      documentID: docId,
+    });
+
+    console.log("data created in db");
+
+    router.navigate("(tabs)/mytrip");
   };
   return (
     <View

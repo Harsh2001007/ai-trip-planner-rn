@@ -1,12 +1,38 @@
-import { View, Text } from "react-native";
-import React, { useState } from "react";
+import { View, Text, ActivityIndicator } from "react-native";
+import React, { useEffect, useState } from "react";
 import { Colors } from "../../constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaFrame } from "react-native-safe-area-context";
 import StartNewTripCard from "../../components/MyTrips/StartNewTripCard";
+import { db, auth } from "./../../configs/firebaseConfig";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import UserTripList from "../../components/MyTrips/UserTripList";
 
 export default function Mytrip() {
   const [userTrips, setUserTrips] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const user = auth.currentUser;
+
+  useEffect(() => {
+    user && GetUserTrip();
+  }, [user]);
+
+  const GetUserTrip = async () => {
+    setLoading(true);
+    setUserTrips([]);
+    const q = query(
+      collection(db, "UserTrips"),
+      where("userEmail", "==", user.email)
+    );
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, "=>", doc.data());
+      setUserTrips((prev) => [...prev, doc.data()]);
+    });
+    setLoading(false);
+    console.log(userTrips, "5555555");
+  };
   return (
     <View
       style={{
@@ -16,6 +42,7 @@ export default function Mytrip() {
         height: "100%",
       }}
     >
+      {loading && <ActivityIndicator size={"large"} color={"black"} />}
       <View
         style={{
           flexDirection: "row",
@@ -34,7 +61,11 @@ export default function Mytrip() {
         <Ionicons name="add-circle" size={50} color="black" />
       </View>
 
-      {userTrips.length == 0 ? <StartNewTripCard /> : null}
+      {userTrips.length == 0 ? (
+        <StartNewTripCard />
+      ) : (
+        <UserTripList userTrips={userTrips} />
+      )}
     </View>
   );
 }
