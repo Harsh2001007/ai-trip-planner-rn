@@ -35,12 +35,10 @@ export default function Signin() {
       .then((userCred) => {
         const user = userCred.user;
         router.replace("/mytrip");
-        console.log("user signed in success");
       })
       .catch((err) => {
         const errCode = err.code;
         const errMsg = err.message;
-        console.log("user sign in failed");
       });
   };
 

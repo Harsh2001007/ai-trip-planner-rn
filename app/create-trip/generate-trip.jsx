@@ -15,7 +15,6 @@ export default function GenerateTrip() {
   const user = auth.currentUser;
 
   useEffect(() => {
-    console.log("prompting started");
     tripData && GenerateAiTrip();
   }, [tripData]);
 
@@ -38,7 +37,6 @@ export default function GenerateTrip() {
       model: "gemini-2.0-flash",
       contents: FINAL_PROMPT,
     });
-    console.log(FINAL_PROMPT, "----------");
 
     const tripResp = response.text;
     const cleanJson = tripResp
@@ -46,11 +44,8 @@ export default function GenerateTrip() {
       .replace(/```$/, "")
       .trim();
 
-    console.log(typeof cleanJson);
-    console.log(cleanJson);
     setLoading(false);
     const docId = Date.now().toString();
-    console.log(typeof docId);
 
     await setDoc(doc(db, "UserTrips", docId), {
       userEmail: user.email,
@@ -58,8 +53,6 @@ export default function GenerateTrip() {
       tripData: JSON.stringify(tripData), // user selection data
       documentID: docId,
     });
-
-    console.log("data created in db");
 
     router.navigate("(tabs)/mytrip");
   };

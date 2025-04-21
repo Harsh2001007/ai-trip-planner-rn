@@ -16,8 +16,18 @@ export default function UserTripCard({ trip }) {
         alignItems: "center",
       }}
     >
-      <Image
+      {/* <Image
         source={require("./../../assets/images/ai-trip-img.webp")}
+        style={{ height: 100, width: 100 }}
+      /> */}
+      <Image
+        source={{
+          uri:
+            "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" +
+            formatData(trip.tripData)?.locationInfo?.photoref +
+            "&key=" +
+            process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY,
+        }}
         style={{ height: 100, width: 100 }}
       />
       <View>

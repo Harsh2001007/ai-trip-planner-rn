@@ -20,10 +20,6 @@ export default function searchplace() {
     });
   }, []);
 
-  useEffect(() => {
-    console.log(tripData, "****");
-  }, [tripData]);
-
   return (
     <View
       style={{

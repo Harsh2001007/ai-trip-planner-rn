@@ -27,11 +27,9 @@ export default function Mytrip() {
     const querySnapshot = await getDocs(q);
 
     querySnapshot.forEach((doc) => {
-      console.log(doc.id, "=>", doc.data());
       setUserTrips((prev) => [...prev, doc.data()]);
     });
     setLoading(false);
-    console.log(userTrips, "5555555");
   };
   return (
     <ScrollView

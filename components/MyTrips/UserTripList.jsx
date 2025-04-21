@@ -3,9 +3,11 @@ import React from "react";
 import moment from "moment";
 import { Colors } from "../../constants/Colors";
 import UserTripCard from "./UserTripCard";
+import { useRouter } from "expo-router";
 
 export default function UserTripList({ userTrips }) {
   const latestTrip = JSON.parse(userTrips[0].tripData);
+  const router = useRouter();
   return (
     userTrips && (
       <View>
@@ -13,7 +15,11 @@ export default function UserTripList({ userTrips }) {
           {latestTrip?.locationInfo?.photoref ? (
             <Image
               source={{
-                uri: "",
+                uri:
+                  "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" +
+                  latestTrip?.locationInfo?.photoref +
+                  "&key=" +
+                  process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY,
               }}
               style={{ width: "100%", height: 240 }}
             />
@@ -49,6 +55,12 @@ export default function UserTripList({ userTrips }) {
               </Text>
             </View>
             <TouchableOpacity
+              onPress={() =>
+                router.push({
+                  pathname: "/trip-detail",
+                  params: { trip: JSON.stringify(userTrips[0]) },
+                })
+              }
               style={{
                 backgroundColor: Colors.BLACK,
                 padding: 15,
