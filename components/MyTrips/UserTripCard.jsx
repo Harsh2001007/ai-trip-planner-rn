@@ -7,7 +7,15 @@ export default function UserTripCard({ trip }) {
     return JSON.parse(data);
   };
   return (
-    <View style={{ marginTop: 15 }}>
+    <View
+      style={{
+        marginTop: 15,
+        display: "flex",
+        flexDirection: "row",
+        gap: 10,
+        alignItems: "center",
+      }}
+    >
       <Image
         source={require("./../../assets/images/ai-trip-img.webp")}
         style={{ height: 100, width: 100 }}
@@ -19,7 +27,6 @@ export default function UserTripCard({ trip }) {
         </Text>
         <Text>{formatData(trip.tripData).travelerCount.title}</Text>
       </View>
-      x
     </View>
   );
 }

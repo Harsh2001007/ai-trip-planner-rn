@@ -10,10 +10,20 @@ export default function UserTripList({ userTrips }) {
     userTrips && (
       <View>
         <View style={{ marginTop: 20 }}>
-          <Image
-            source={require("./../../assets/images/ai-trip-img.webp")}
-            style={{ width: "100%", height: 240 }}
-          />
+          {latestTrip?.locationInfo?.photoref ? (
+            <Image
+              source={{
+                uri: "",
+              }}
+              style={{ width: "100%", height: 240 }}
+            />
+          ) : (
+            <Image
+              source={require("./../../assets/images/ai-trip-img.webp")}
+              style={{ width: "100%", height: 240 }}
+            />
+          )}
+
           <View style={{ marginTop: 10 }}>
             <Text style={{ fontSize: 20, fontFamily: "outfit-medium" }}>
               {userTrips[0]?.tripPlan?.travelPlan?.location}
@@ -62,6 +72,7 @@ export default function UserTripList({ userTrips }) {
             <UserTripCard trip={item} key={index} />
           ))}
         </View>
+        <Text></Text>
       </View>
     )
   );

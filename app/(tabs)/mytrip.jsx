@@ -1,4 +1,4 @@
-import { View, Text, ActivityIndicator } from "react-native";
+import { View, Text, ActivityIndicator, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Colors } from "../../constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
@@ -34,7 +34,7 @@ export default function Mytrip() {
     console.log(userTrips, "5555555");
   };
   return (
-    <View
+    <ScrollView
       style={{
         padding: 25,
         paddingTop: 55,
@@ -66,6 +66,6 @@ export default function Mytrip() {
       ) : (
         <UserTripList userTrips={userTrips} />
       )}
-    </View>
+    </ScrollView>
   );
 }
