@@ -1,6 +1,11 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useLocalSearchParams, useNavigation } from "expo-router";
+import { Colors } from "../../constants/Colors";
+import moment from "moment";
+import FlightInfo from "../../components/Tripdetails/FlightInfo";
+import HotelInfo from "../../components/Tripdetails/HotelInfo";
+import PlannedTrip from "../../components/Tripdetails/PlannedTrip";
 
 export default function index() {
   const navigation = useNavigation();
@@ -23,7 +28,7 @@ export default function index() {
 
   return (
     tripDetails && (
-      <View>
+      <ScrollView>
         <Image
           source={{
             uri:
@@ -34,7 +39,52 @@ export default function index() {
           }}
           style={{ height: 300, width: "100%" }}
         />
-      </View>
+        <View
+          style={{
+            padding: 15,
+            backgroundColor: Colors.WHITE,
+            height: "100%",
+            marginTop: -30,
+            borderTopLeftRadius: 30,
+            borderTopRightRadius: 30,
+          }}
+        >
+          <Text style={{ fontSize: 25, fontFamily: "outfit-bold" }}>
+            {JSON.parse(formatData(trip).tripData).locationInfo.name}
+          </Text>
+          <View style={{ flexDirection: "row", gap: 15 }}>
+            <Text>
+              {moment(JSON.parse(formatData(trip).tripData).startDate).format(
+                "DD MMM YYYY"
+              )}
+            </Text>
+            <Text>⤐</Text>
+            <Text>
+              {moment(JSON.parse(formatData(trip).tripData).endDate).format(
+                "DD MMM YYYY"
+              )}
+            </Text>
+          </View>
+          <Text>
+            🚌 {JSON.parse(formatData(trip).tripData).travelerCount.title}
+          </Text>
+          <FlightInfo
+            flightData={formatData(trip).tripPlan.travelPlan.flights}
+          />
+
+          <HotelInfo hotelData={formatData(trip).tripPlan.travelPlan.hotels} />
+
+          <PlannedTrip
+            details={formatData(trip).tripPlan.travelPlan.itinerary}
+          />
+        </View>
+
+        {/* flight info  */}
+
+        {/* hotel list  */}
+
+        {/* trip day planner info  */}
+      </ScrollView>
     )
   );
 }
