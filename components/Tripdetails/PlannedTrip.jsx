@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   },
   place: {
     fontSize: 15,
-    marginTop: 4,
+    marginTop: 5,
     color: "#333",
   },
   details: {
