@@ -33,7 +33,7 @@ export default function FlightInfo({ flightData }) {
           {flightData.details.airline}
         </Text>
         <Text style={{ fontSize: 14, fontFamily: "outfit-medium" }}>
-          Estimated Price - {flightData.price.currency}{" "}
+          Estimated Prices - {flightData.price.currency}{" "}
           {flightData.price.estimate}
         </Text>
       </View>
